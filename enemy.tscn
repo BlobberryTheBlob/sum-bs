@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://dfp781m2mjv3w"]
+
+[ext_resource type="Script" uid="uid://bytc3f08m0ejo" path="res://enemybasic.gd" id="1_4gyqm"]
+[ext_resource type="Texture2D" uid="uid://bea8q3ffrlcv7" path="res://icon.svg" id="2_qi2p4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ga3hk"]
+radius = 0.01
+
+[sub_resource type="Animation" id="Animation_1bvp3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:metadata/floatyNum")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_lquwl"]
+resource_name = "floatUpDown"
+length = 1.000004196469113
+loop_mode = 1
+step = 0.041666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:metadata/floatyNum")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [-25.0, 25.0, -25.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7mycd"]
+_data = {
+&"RESET": SubResource("Animation_1bvp3"),
+&"floatUpDown": SubResource("Animation_lquwl")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6qx4q"]
+radius = 64.07808
+
+[node name="Enemy" type="CharacterBody2D" unique_id=1267595146]
+script = ExtResource("1_4gyqm")
+metadata/floatyNum = 0.0
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=292340198]
+modulate = Color(1, 0, 0, 1)
+texture = ExtResource("2_qi2p4")
+
+[node name="EnemyHurtbox" type="CollisionShape2D" parent="." unique_id=202891363]
+shape = SubResource("CircleShape2D_ga3hk")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1481380692]
+libraries/ = SubResource("AnimationLibrary_7mycd")
+
+[node name="EnemyHitbox" type="Area2D" parent="." unique_id=1549009021]
+
+[node name="Hitbox" type="CollisionShape2D" parent="EnemyHitbox" unique_id=462777218]
+shape = SubResource("CircleShape2D_6qx4q")
+debug_color = Color(0.83137256, 0, 0, 0.41960785)
