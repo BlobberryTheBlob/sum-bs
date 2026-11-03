@@ -1,4 +1,6 @@
 extends CharacterBody2D
+var landing = false
+
 
 func _ready() -> void:
 	$"AttackArea".set_meta("Attacking", false)
@@ -9,6 +11,7 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 		look_at($"../Target".position)
+		landing = false
 	else:
 		land(delta)
 	$"AttackArea".visible = $"AttackArea".get_meta("Attacking")
@@ -16,25 +19,27 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func land(delta) -> void:
-	if velocity.x > 100 or velocity.x < -100:
-		look_at($"../Target".position)
+	rotation_degrees = -90
+	if velocity.x > 100 or velocity.x < -100 and not $AttackArea.get_meta("Attacking"):
+		landing = true
 		if velocity.x > 0:
 			velocity.x -= 500 * delta
 		elif velocity.x < 0:
 			velocity.x += 500 * delta
 	else:
-		rotation_degrees = -90
+		landing = false
 		velocity.x = 0
 
 
 
 func _on_target_release(force) -> void:
-	look_at($"../Target".position)
-	velocity.x = transform.x.x * force
-	velocity.y = transform.x.y * force
-	$"AttackArea".set_meta("Attacking", true)
-	await get_tree().create_timer(0.1).timeout
-	$"AttackArea".set_meta("Attacking", false)
+	if not landing:
+		look_at($"../Target".position)
+		velocity.x = transform.x.x * force
+		velocity.y = transform.x.y * force
+		$"AttackArea".set_meta("Attacking", true)
+		await get_tree().create_timer(0.1).timeout
+		$"AttackArea".set_meta("Attacking", false)
 
 func connectToEnemy() -> void:
 	var enemyPath = str($"../EnemySpawner".instance.get_path())

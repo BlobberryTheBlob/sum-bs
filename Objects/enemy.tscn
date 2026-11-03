@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dfp781m2mjv3w"]
 
-[ext_resource type="Script" uid="uid://bytc3f08m0ejo" path="res://enemybasic.gd" id="1_4gyqm"]
-[ext_resource type="Texture2D" uid="uid://bea8q3ffrlcv7" path="res://icon.svg" id="2_qi2p4"]
+[ext_resource type="Script" uid="uid://bytc3f08m0ejo" path="res://Scripts/enemybasic.gd" id="1_dnm5c"]
+[ext_resource type="Texture2D" uid="uid://bea8q3ffrlcv7" path="res://icon.svg" id="2_d3xos"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ga3hk"]
 radius = 0.01
@@ -49,12 +49,12 @@ _data = {
 radius = 64.07808
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1267595146]
-script = ExtResource("1_4gyqm")
+script = ExtResource("1_dnm5c")
 metadata/floatyNum = 0.0
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=292340198]
 modulate = Color(1, 0, 0, 1)
-texture = ExtResource("2_qi2p4")
+texture = ExtResource("2_d3xos")
 
 [node name="EnemyHurtbox" type="CollisionShape2D" parent="." unique_id=202891363]
 shape = SubResource("CircleShape2D_ga3hk")
