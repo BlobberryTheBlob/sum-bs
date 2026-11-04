@@ -14,6 +14,7 @@ size = Vector2(3136, 128)
 [node name="EnemySpawner" parent="." unique_id=270166011 instance=ExtResource("1_lquwl")]
 
 [node name="Player" parent="." unique_id=274681223 instance=ExtResource("2_7mycd")]
+position = Vector2(-17, -115)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=883147828]
 zoom = Vector2(0.7, 0.7)

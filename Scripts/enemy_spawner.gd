@@ -2,6 +2,10 @@ extends Node2D
 var rng = RandomNumberGenerator.new()
 const ENEMY = preload("uid://dfp781m2mjv3w")
 var instance
+var enemies = [preload("uid://dfp781m2mjv3w")]
+
+
+
 
 func _ready() -> void:
 	$Timer.timeout.connect(spawnEnemy)

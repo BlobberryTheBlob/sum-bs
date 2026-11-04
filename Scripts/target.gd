@@ -16,5 +16,5 @@ func _input(event: InputEvent) -> void:
 	if event.is_action("tap"):
 		isPressed = true
 		if event.is_released():
-			emit_signal("release", 1000)
+			emit_signal("release", Vector2(1000, 1000), true)
 			isPressed = false
