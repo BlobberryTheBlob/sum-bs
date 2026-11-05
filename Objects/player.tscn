@@ -16,9 +16,11 @@ script = ExtResource("1_onrkg")
 rotation = 1.5707964
 texture = ExtResource("2_i3pqv")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1579204098]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1498262280]
+visible = false
 rotation = 1.5707964
 shape = SubResource("CircleShape2D_g7b7a")
+debug_color = Color(0, 1, 0, 0.41960785)
 
 [node name="AttackArea" type="Area2D" parent="." unique_id=2013046129]
 rotation = 1.5707964
@@ -32,4 +34,11 @@ texture = ExtResource("2_i3pqv")
 position = Vector2(0, -255)
 scale = Vector2(0.82808256, 2.5896475)
 shape = SubResource("RectangleShape2D_gyc6d")
+debug_color = Color(0.98039216, 0, 0, 0.41960785)
 metadata/Attacking = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=190524995]
+
+[node name="Hitbox" type="CollisionShape2D" parent="Hitbox" unique_id=1579204098]
+rotation = 1.5707964
+shape = SubResource("CircleShape2D_g7b7a")

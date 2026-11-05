@@ -1,18 +1,18 @@
 extends Node2D
 var rng = RandomNumberGenerator.new()
-const ENEMY = preload("uid://dfp781m2mjv3w")
+const ENEMY = preload("res://Objects/enemy.tscn")
 var instance
-var enemies = [preload("uid://dfp781m2mjv3w")]
-
+var enemies = [preload("res://Objects/enemy.tscn")]
 
 
 
 func _ready() -> void:
-	$Timer.timeout.connect(spawnEnemy)
+	$Timer.timeout.connect(_spawn_enemy)
 
 
 
-func spawnEnemy() -> void:
-	$Timer.wait_time = rng.randf_range(1, 4)
-	instance = ENEMY.instantiate()
-	$"..".add_child(instance)
+func _spawn_enemy() -> void:
+	if $"../Camera2D".playerAlive:
+		$Timer.wait_time = rng.randf_range(1, 4)
+		instance = ENEMY.instantiate()
+		$"..".add_child(instance)

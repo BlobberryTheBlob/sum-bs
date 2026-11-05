@@ -1,25 +1,30 @@
 [gd_scene format=3 uid="uid://kjto2x6yb3qa"]
 
 [ext_resource type="PackedScene" uid="uid://cshnytbiloyfi" path="res://Objects/enemy_spawner.tscn" id="1_lquwl"]
+[ext_resource type="PackedScene" uid="uid://et53qwiutbpp" path="res://Scenes/gameUI.tscn" id="2_6bp64"]
 [ext_resource type="PackedScene" uid="uid://c32rnho70qih3" path="res://Objects/player.tscn" id="2_7mycd"]
 [ext_resource type="Texture2D" uid="uid://bea8q3ffrlcv7" path="res://icon.svg" id="2_lquwl"]
 [ext_resource type="Script" uid="uid://c4gukc0nhmpu3" path="res://Scripts/target.gd" id="3_7mycd"]
-[ext_resource type="Script" uid="uid://bhocna7jtt7hr" path="res://Scripts/player_camera_control.gd" id="4_lquwl"]
+[ext_resource type="Script" uid="uid://bhocna7jtt7hr" path="res://Scripts/camera_control.gd" id="4_lquwl"]
+[ext_resource type="PackedScene" uid="uid://duauyfia0sjva" path="res://Objects/enemy.tscn" id="6_21xkr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g7b7a"]
 size = Vector2(3136, 128)
 
 [node name="Node2D" type="Node2D" unique_id=1291485210]
 
+[node name="Camera2D" type="Camera2D" parent="." unique_id=179631086]
+script = ExtResource("4_lquwl")
+
+[node name="Ui" parent="Camera2D" unique_id=1343060380 instance=ExtResource("2_6bp64")]
+z_index = 15
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
 [node name="EnemySpawner" parent="." unique_id=270166011 instance=ExtResource("1_lquwl")]
 
 [node name="Player" parent="." unique_id=274681223 instance=ExtResource("2_7mycd")]
 position = Vector2(-17, -115)
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=883147828]
-zoom = Vector2(0.7, 0.7)
-limit_smoothed = true
-script = ExtResource("4_lquwl")
 
 [node name="Target" type="Node2D" parent="." unique_id=1967459220]
 script = ExtResource("3_7mycd")
@@ -33,3 +38,5 @@ texture = ExtResource("2_lquwl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground" unique_id=329566780]
 shape = SubResource("RectangleShape2D_g7b7a")
+
+[node name="Enemy" parent="." unique_id=1278229108 instance=ExtResource("6_21xkr")]

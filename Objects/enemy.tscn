@@ -1,69 +1,133 @@
-[gd_scene format=3 uid="uid://dfp781m2mjv3w"]
+[gd_scene format=3 uid="uid://duauyfia0sjva"]
 
-[ext_resource type="Script" uid="uid://bytc3f08m0ejo" path="res://Scripts/enemybasic.gd" id="1_dnm5c"]
+[ext_resource type="Script" uid="uid://bytc3f08m0ejo" path="res://Scripts/enemy_basic.gd" id="1_dnm5c"]
 [ext_resource type="Texture2D" uid="uid://bea8q3ffrlcv7" path="res://icon.svg" id="2_d3xos"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ga3hk"]
-radius = 0.01
-
-[sub_resource type="Animation" id="Animation_1bvp3"]
+[sub_resource type="Animation" id="Animation_6bp64"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:metadata/floatyNum")
+tracks/0/path = NodePath("..:metadata/floatyNum")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [25.0]
 }
 
-[sub_resource type="Animation" id="Animation_lquwl"]
-resource_name = "floatUpDown"
-length = 1.000004196469113
-loop_mode = 1
+[sub_resource type="Animation" id="Animation_d3xos"]
+resource_name = "floatDown"
+length = 0.500004181567952
 step = 0.041666668
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:metadata/floatyNum")
+tracks/0/path = NodePath("..:metadata/floatyNum")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
+"times": PackedFloat32Array(0, 0.42, 0.5000042),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [-25.0, 200.0, -25.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.45833334),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_set_init_y"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_dnm5c"]
+resource_name = "floatUp"
+length = 0.500004181567952
+step = 0.041666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:metadata/floatyNum")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.42, 0.5000042),
+"transitions": PackedFloat32Array(-0.5, -2, -2),
+"update": 0,
+"values": [25.0, -200.0, 25.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.45833334),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_set_init_y"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_344ge"]
+resource_name = "floatUpDown"
+length = 1.000004196469113
+step = 0.041666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:metadata/floatyNum")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.0000042),
 "transitions": PackedFloat32Array(-2, -2, -2),
 "update": 0,
 "values": [-25.0, 25.0, -25.0]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_7mycd"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ynf5e"]
 _data = {
-&"RESET": SubResource("Animation_1bvp3"),
-&"floatUpDown": SubResource("Animation_lquwl")
+&"RESET": SubResource("Animation_6bp64"),
+&"floatDown": SubResource("Animation_d3xos"),
+&"floatUp": SubResource("Animation_dnm5c"),
+&"floatUpDown": SubResource("Animation_344ge")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_6qx4q"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_g7b7a"]
 radius = 64.07808
 
-[node name="Enemy" type="CharacterBody2D" unique_id=1267595146]
-script = ExtResource("1_dnm5c")
-metadata/floatyNum = 0.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_gyc6d"]
+radius = 64.513565
 
-[node name="Sprite" type="Sprite2D" parent="." unique_id=292340198]
+[node name="Enemy" type="Area2D" unique_id=1278229108]
+script = ExtResource("1_dnm5c")
+metadata/floatyNum = 25.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=19397551]
 modulate = Color(1, 0, 0, 1)
 texture = ExtResource("2_d3xos")
 
-[node name="EnemyHurtbox" type="CollisionShape2D" parent="." unique_id=202891363]
-shape = SubResource("CircleShape2D_ga3hk")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=25400323]
+root_node = NodePath("../EnemyHitbox")
+libraries/ = SubResource("AnimationLibrary_ynf5e")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1481380692]
-libraries/ = SubResource("AnimationLibrary_7mycd")
+[node name="EnemyHurtbox" type="CollisionShape2D" parent="." unique_id=96690519]
+shape = SubResource("CircleShape2D_g7b7a")
 
-[node name="EnemyHitbox" type="Area2D" parent="." unique_id=1549009021]
+[node name="EnemyHitbox" type="Area2D" parent="." unique_id=186563614]
 
-[node name="Hitbox" type="CollisionShape2D" parent="EnemyHitbox" unique_id=462777218]
-shape = SubResource("CircleShape2D_6qx4q")
-debug_color = Color(0.83137256, 0, 0, 0.41960785)
+[node name="Hitbox" type="CollisionShape2D" parent="EnemyHitbox" unique_id=1478009603]
+shape = SubResource("CircleShape2D_gyc6d")
+debug_color = Color(1, 0, 0, 0.41960785)

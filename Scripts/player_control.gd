@@ -1,10 +1,10 @@
 extends CharacterBody2D
 var landing = false
-
+signal game_over
 
 func _ready() -> void:
 	$"AttackArea".set_meta("Attacking", false)
-	$"../EnemySpawner/Timer".timeout.connect(connectToEnemy)
+	$"../EnemySpawner/Timer".timeout.connect(_connect_to_enemy)
 	$"../Target".release.connect(_on_target_release)
 
 func _physics_process(delta: float) -> void:
@@ -13,13 +13,12 @@ func _physics_process(delta: float) -> void:
 		look_at($"../Target".position)
 		landing = false
 	else:
-		land(delta)
+		_land(delta)
 	$"AttackArea".visible = $"AttackArea".get_meta("Attacking")
 	$"AttackArea/AttackHurtbox".disabled = not $"AttackArea".get_meta("Attacking")
-	print_debug(str(self.global_position.distance_to($"../Ground".global_position)))
 	move_and_slide()
 
-func land(delta) -> void:
+func _land(delta) -> void:
 	rotation_degrees = -90
 	if abs(velocity.x) > 100 and not $AttackArea.get_meta("Attacking"):
 		if velocity.x > 0:
@@ -45,16 +44,16 @@ func _on_target_release(force: Vector2, attack: bool) -> void:
 			await get_tree().create_timer(0.1).timeout
 			$"AttackArea".set_meta("Attacking", false)
 
-func connectToEnemy() -> void:
+func _connect_to_enemy() -> void:
 	var enemyPath = str($"../EnemySpawner".instance.get_path())
-	get_node(enemyPath).killed.connect(afterDieBoost)
+	get_node(enemyPath).killed.connect(_after_kill_boost)
+	get_node(enemyPath).area_entered.connect(_die)
 
 
-func afterDieBoost() -> void:
+func _after_kill_boost() -> void:
 	_on_target_release(Vector2(abs(velocity.x) + 1000, abs(velocity.y) + 1000), false)
 
-func getDirection(num: float) -> int:
-	if num >=  0:
-		return 1 
-	else:
-		return -1
+func _die(area: Area2D) -> void:
+	if area == $Hitbox:
+		game_over.emit()
+		self.queue_free()
